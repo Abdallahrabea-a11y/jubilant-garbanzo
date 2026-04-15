@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام فحص السيرة الذاتية الذكي</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 { color: #2c3e50; margin-bottom: 1rem; }
+        p { color: #7f8c8d; margin-bottom: 2rem; }
+        .upload-area {
+            border: 2px dashed #3498db;
+            padding: 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .upload-area:hover { background-color: #ebf5fb; }
+        input[type="file"] { margin: 1rem 0; }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #2980b9; }
+        .result-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #e8f5e9;
+            border-right: 5px solid #4caf50;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>نظام فحص الـ CV الذكي</h1>
+    <p>ارفع ملف السيرة الذاتية (PDF أو Word) لتحليله فوراً</p>
+
+    <!-- ده الجزء المهم اللي بيربط مع الـ main.py -->
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+        <div class="upload-area">
+            <input type="file" name="resume" accept=".pdf, .doc, .docx" required>
+        </div>
+        <br>
+        <button type="submit">بدء الفحص التلقائي</button>
+    </form>
+
+    <!-- عرض النتيجة اللي راجعة من الباك إند -->
+    {% if prediction %}
+    <div class="result-box">
+        <strong>نتيجة الفحص:</strong>
+        <p>{{ prediction }}</p>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
